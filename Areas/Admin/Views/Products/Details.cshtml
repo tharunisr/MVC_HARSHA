@@ -1,0 +1,63 @@
+﻿@model EfDbCoreFirst.Models.Product
+@{
+    ViewBag.Title = "Product Details";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayoutPage1.cshtml";
+}
+
+<h2>Product details</h2>
+<table class="table">
+    <tr>
+        <th>Product Id</th>
+        <td>@Model.ProductID</td>
+    </tr>
+    <tr>
+        <th>Product Name</th>
+        <td>@Model.ProductName</td>
+    </tr>
+    <tr>
+        <th>Price</th>
+        <td>
+            @if (Model.Price.HasValue)
+            {
+                @Model.Price.Value.ToString("C")
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>Date Of Purchase</th>
+        <td>
+            @if (Model.DateOfPurchase.HasValue)
+            {
+                @Model.DateOfPurchase.Value.ToString("d/m/yyyy")
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>Availability</th>
+        <td>@Model.AvailabilityStatus</td>
+    </tr>
+    <tr>
+        <th>Brand Id</th>
+        <td>
+            @if (Model.BrandID != null)
+            {
+                @Model.Brand.BrandName
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>Category Id</th>
+        <td>
+            @if (Model.CategoryID != null)
+            {
+                @Model.Category.CategoryName
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>Active</th>
+        <td>@Model.Active</td>
+    </tr>
+</table>
+
+<a href="/admin/products/index">Back to Products</a>

@@ -1,0 +1,256 @@
+﻿@model EfDbCoreFirst.Models.Product
+@using EfDbCoreFirst.Html_Helper
+
+
+@{
+    ViewBag.Title = "Create Product";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayoutPage1.cshtml";
+}
+
+<h2>Create product</h2>
+
+@using (Html.BeginForm("Create", "Products",new {area="Admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(temp => temp.ProductName)
+            @Html.TextBoxFor(temp => temp.ProductName, new { Placeholder = "Product Name", @class = "form-control" })
+            @Html.ValidationMessageFor(temp=>temp.ProductName)
+
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(temp => temp.Price)
+            @Html.TextBoxFor(temp => temp.Price, new { Placeholder = "Price", @class = "form-control" })
+            @Html.ValidationMessageFor(temp => temp.Price)
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(temp => temp.DateOfPurchase)
+            @Html.TextBoxFor(temp => temp.DateOfPurchase, new { Placeholder = "DateOfPurchase", @class = "form-control" })
+            @Html.ValidationMessageFor(temp => temp.DateOfPurchase)
+        </div>
+        <div class="form-check col-md-6">
+            @Html.LabelFor(temp => temp.AvailabilityStatus, new { @class = "form-check-label" })
+            <div class="form-check">
+                @Html.RadioButtonFor(temp => temp.AvailabilityStatus, "InStock", new { @class = "form-check-input", id = "InStock" })
+                <label class="form-check-label" for="InStock">In Stock</label>
+            </div>
+            <div class="form-check">
+                @Html.RadioButtonFor(temp => temp.AvailabilityStatus, "OutOfStock", new { @class = "form-check-input", id = "OutOfStock" })
+                <label class="form-check-label" for="OutOfStock">Out of Stock</label>
+            </div>
+            @Html.ValidationMessageFor(temp => temp.AvailabilityStatus)
+
+            @*@Html.DropDownListFor(temp => temp.AvailabilityStatus, new List<SelectListItem>() {
+        new SelectListItem(){Text="InStock",Value="InStock"},
+        new SelectListItem(){Text="OutStock",Value="OutOfStock"}
+        }, "Please Select", new { @class = "form-control" })*@
+
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(temp => temp.CategoryID)
+            @Html.DropDownListFor(temp => temp.CategoryID, new SelectList(ViewBag.Categories, "CategoryID", "CategoryName"), "Please Select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(temp => temp.CategoryID)
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(temp => temp.BrandID)
+            @Html.DropDownListFor(temp => temp.BrandID, new SelectList(ViewBag.Brands, "BrandID", "BrandName"), "Please Select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(temp => temp.BrandID)
+        </div>
+    </div>
+    <div class="form-control">
+        <label for="image">Image</label>
+        @Html.File("form-control-file")
+
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            @Html.CheckBoxFor(temp => temp.Active.Value, new { @class = "form-check-input", value = "true" })
+            @Html.LabelFor(temp => temp.Active, new { @class = "form-check-label" })
+            @Html.ValidationMessageFor(temp => temp.Active)
+        </div>
+    </div>
+    @Html.ValidationSummary()
+    <button type="submit" class="btn btn-success">Create</button>
+    <a class="btn btn-danger" href="/admin/products/index">Cancel</a>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<form action="/products/create" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="ProductName">Product Name</label>
+                <input type="text" class="form-control" id="ProductName" name="ProductName" placeholder="Product Name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Price">Price</label>
+                <input type="number" class="form-control" id="Price" name="Price" placeholder="Price">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="DateOfPurchase">Date of Purchase</label>
+                <input type="date" class="form-control" id="DateOfPurchase" name="DateOfPurchase" placeholder="Date of Purchase">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="AvailabilityStatus">Availability Status</label>
+                <Select class="form-control" id="AvailabilityStatus" name="AvailabilityStatus">
+                    <option value="">Please Select</option>
+                    <option value="InStock">InStock</option>
+                    <option value="OutOfStock">OutOfStock</option>
+                </Select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="CategoryID">Category</label>
+                <select class="form-control" id="CategoryID" name="CategoryID">
+                    <option value="">Please Select</option>
+                    @foreach(var i in ViewBag.Categories)
+                   {
+                        <option value="@i.CategoryID" >@i.CategoryName</option>
+                   }
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="BrandID">Brand</label>
+                <select class="form-control" id="BrandID" name="BrandID">
+                    <option value="">Please Select</option>
+                    @foreach (var i in ViewBag.Brands)
+                    {
+                        <option value="@i.BrandID">@i.BrandName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-control">
+            <label for="image">Image</label>
+            <input type="file" class="form-control-file" id="image" name="Photo" />
+
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Active" name="Active">
+                <label class="form-check-label" for="Active" value="True">
+                    Active
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Create</button>
+        <a class="btn btn-danger" href="/products/index">Cancel</a>
+    </form>*@
+
